@@ -1,0 +1,94 @@
+body{
+    margin:0;
+    background-color: grey;
+}
+
+#container
+{
+    width: 60%;
+    margin: 0 auto;
+    
+}
+.navv
+{
+    height: 17px;
+}
+.btn
+{
+   background-color: white;
+   color: #2a1df1;
+   font-weight: 2%;
+    border:0;
+    margin:0 4px;
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: 700;
+    transition: all 0.5s;
+    height: 100%;
+}
+.btn:hover{
+ background-color:#2a1df1;
+ color: white;
+}
+
+.highlight
+{
+    background-color:#2a1df1;
+    color: white;
+
+}
+.box
+{
+    background-color:purple;
+    width:30%;
+    padding-bottom: 30%;
+    margin:1.66%;
+    float: left;
+    border-radius:20px;
+    transition: background-color 1s;
+
+    
+}
+
+h1{
+text-align: center;
+color:white;
+line-height: 1.1;
+padding:20px  0;
+margin: 0;
+background-color:#2a1df1;
+text-transform: uppercase;
+}
+
+#result
+{    
+    height: 100%;
+    font-weight: 2%;
+     text-align: center;
+     text-transform: uppercase;
+     font-weight: 700;
+     background-color: white;
+     margin: 0;
+     border:0;
+     padding:auto 6px;
+
+ 
+}
+
+nav{
+    background-color: white;
+    color:black;
+    display:flex;
+    justify-content: center;
+
+
+}
+#result{
+    width: 20%;
+    text-align: center;
+}
+
+.fade
+{
+    transition: background-color 0.4s;
+}
