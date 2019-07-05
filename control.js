@@ -1,5 +1,5 @@
-let num=6;
-// let cc=document.querySelectorAll(".box");
+var num=6;
+let colors=[];
 let textDisplay=document.getElementById("display");
 let sq=document.getElementsByClassName("box");
 let result=document.getElementById("result");
@@ -7,109 +7,68 @@ let headd=document.getElementById("headd");
 let rst=document.getElementById("reset");
 let easy=document.getElementById("easy");
 let hard=document.getElementById("hard");
+let ch=document.querySelectorAll(".choice");
+hard.classList.add("highlight");
 
-const eassy=()=>
+//random color for box
+const ranColor=()=>
 {
-    easy.classList.add("highlight");
-    hard.classList.remove("highlight");
-    num=3; 
- colors=randomColor(num);
- randomPick=colors[pick()];
-textDisplay.textContent=randomPick;
-    for(let i=0;i<sq.length;i++)
-    {
-        if(i<num){
-        sq[i].style.background=colors[i];
-        console.log(colors[i]);
-        }
-        else{
-            sq[i].style.display="none"
-        }
-    }    
-
+    let r= Math.floor(Math.random()*255+1);
+    let g= Math.floor(Math.random()*255+1);
+    let b= Math.floor(Math.random()*255+1);
+    return "rgb("+r+", "+g+", "+b+")" ;
 }
 
-easy.addEventListener("click",eassy);
-
-
-const harrd=()=>
-{
-    easy.classList.remove("highlight");
-    hard.classList.add("highlight");
-     num=6;
-     colors=randomColor(num);
-     randomPick=colors[pick()];
-    textDisplay.textContent=randomPick;
-    
-        for(let i=0;i<sq.length;i++)
-        {
-           
-            sq[i].style.background=colors[i];
-            
-                sq[i].style.display="block"; 
-        }   
-}
-hard.addEventListener("click",harrd);
-
-
- //random color for box
- const ranColor=()=>
- {
-     let r= Math.floor(Math.random()*255+1);
-     let g= Math.floor(Math.random()*255+1);
-     let b= Math.floor(Math.random()*255+1);
- 
-     return "rgb("+r+", "+g+", "+b+")" ;
- }
-
- const randomColor=(x)=>
- {
-     let arr=[];
-     for(let i=0;i<x;i++)
-     { 
-         arr.push(ranColor());
-     }
-    return arr;
- };
-  colors=randomColor(6);
- 
 // random pick of colors
 const pick=()=>
 {
-    return Math.floor(Math.random()*colors.length);
+   return Math.floor(Math.random()*colors.length);
 
 };
 var randomPick=colors[pick()];
 textDisplay.textContent=randomPick;
 
-
-//reset funcion
-const reset=()=>
-{  
-    console.log("sd");
+//picks random color assign to color array
+const randomColor=(x)=>
+{
+    let arr=[];
+    for(let i=0;i<x;i++)
+    { 
+        arr.push(ranColor());
+    }
+   return arr;
+};
  colors=randomColor(num);
- randomPick=colors[pick()];
-console.log(randomPick,"rrc")
-textDisplay.textContent=randomPick;
 
+ //fills box with color background
+function assign()
+{ headd.style.background="#2a1df1"
+    colors=randomColor(num);
+     randomPick=colors[pick()];
+    textDisplay.textContent=randomPick;
     for(let i=0;i<sq.length;i++)
-    {
-        // randon colors assign
-        sq[i].style.background=colors[i];
-        console.log(colors[i])
-        
-    }    
+        {
+            if(i<num){
+            sq[i].style.background=colors[i];
+            sq[i].style.display="block";
+            }
+            else{
+                sq[i].style.display="none"
+            }
+        }    
 
-    headd.style.background="#2a1df1";
+}
 
-
-
+//reset or playAgainbutton
+const reset=()=>
+{  headd.style.background="#2a1df1";
+   assign();
     
 }
 rst.addEventListener("click",reset);
 
-    
-    const correct=()=>
+//After validate apply to box
+const correct=()=>
     {
         for(let i=0;i<sq.length;i++)
         {
@@ -121,36 +80,65 @@ rst.addEventListener("click",reset);
         }
     };
 
-    //choosing the color
+    //checks for mode easy or hard
+    const setup=()=>
+    {
+        for(let i=0;i<ch.length;i++)
+    {  
+        ch[i].addEventListener("click",
+        function(){
+            console.log("ch",ch[i]);
+            easy.classList.remove("highlight");
+            hard.classList.remove("highlight");
+            this.classList.add("highlight");
+             this.textContent==="easy"? num=3:num=6;
+             assign();
 
-    
+        });
+    }
+    }
 
+    //click box correct or not
+ const validity=()=>
+ {
     for(let i=0;i<sq.length;i++)
     {
         // randon colors assign
-    
-        sq[i].style.background=colors[i];
-        sq[i].addEventListener("click",function(){
-          
+        sq[i].addEventListener("click",
+        function(){
             if(randomPick===this.style.background)
-            {
-              
-
+            {  
                 result.textContent="Correct";
                 correct();
                 headd.style.background=randomPick;
-
-    
             }
-            else{
+                  else{
                 result.textContent="InCorrect";
                 this.classList.add("fade");
                 this.style.background="grey";    
             }
         });
     }
+ }
+
+ //initial method 
+function init()
+{
+   setup();   
+   validity();
+   reset();
+
+}
+init();
 
 
+
+
+
+
+    
+
+  
 
 
 
